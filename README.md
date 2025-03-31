@@ -1,2 +1,7 @@
-# CODETECH_TASK_3
-design 4 stage pipeline processor
+# CODETECH-TASK3    :pipeline peocessor
+**COMPANY**         :CODETECH IT SOLUTIONS
+**NAME**            :RAJESH BOKKA
+**INTERN ID**       :CT04WA63
+**DOMAIN**          :VLSI
+**BATCH DURATION**  :MARCH 15th,2025 TO APRIL 15th,2025
+**MENTOR**          :NELLA SANTHOSH KUMAR
