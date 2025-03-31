@@ -89,3 +89,5 @@ R0 = 0, R1 = 8, R2 = 8, R3 = 10
 This 4-stage pipelined processor successfully executes ADD, SUB, and LOAD instructions. Each stage operates in one cycle, overlapping execution to achieve higher throughput. The simulation demonstrates the pipeline filling and draining, with correct results written back to registers.
 
 OUTPUT:
+![pipeline_output2](https://github.com/user-attachments/assets/23fe1c8c-64c0-46db-b336-7da06de2b926)
+
