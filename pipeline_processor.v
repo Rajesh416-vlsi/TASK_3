@@ -2,12 +2,10 @@ module PipelinedProcessor(
     input clk, reset
 );
 
-    // Instruction Memory
+   
     reg [31:0] instruction_memory [0:15];
     reg [31:0] register_file [0:7];
     reg [31:0] data_memory [0:15];
-
-    // Pipeline Registers
     reg [31:0] IF_ID_IR, IF_ID_PC;
     reg [31:0] ID_EX_A, ID_EX_B, ID_EX_IMM;
     reg [2:0] ID_EX_RD;
@@ -20,17 +18,17 @@ module PipelinedProcessor(
     integer i;
 
     initial begin
-        // Initialize instruction memory (Example Program)
-        instruction_memory[0] = 32'b000000_00001_00010_00011_00000_100000; // ADD R3, R1, R2
-        instruction_memory[1] = 32'b000000_00011_00001_00100_00000_100010; // SUB R4, R3, R1
-        instruction_memory[2] = 32'b100011_00001_00101_0000000000000100;  // LOAD R5, 4(R1)
+        
+        instruction_memory[0] = 32'b000000_00001_00010_00011_00000_100000; 
+        instruction_memory[1] = 32'b000000_00011_00001_00100_00000_100010; 
+        instruction_memory[2] = 32'b100011_00001_00101_0000000000000100;  
 
-        // Initialize registers
+        
         for (i = 0; i < 8; i = i + 1)
             register_file[i] = i;
     end
 
-    // IF Stage
+    
     reg [31:0] PC = 0;
     always @(posedge clk or posedge reset) begin
         if (reset) PC <= 0;
@@ -41,7 +39,7 @@ module PipelinedProcessor(
         end
     end
 
-    // ID Stage
+   
     always @(posedge clk) begin
         ID_EX_A <= register_file[IF_ID_IR[25:21]];
         ID_EX_B <= register_file[IF_ID_IR[20:16]];
@@ -49,24 +47,24 @@ module PipelinedProcessor(
         ID_EX_RD <= IF_ID_IR[15:11];
     end
 
-    // EX Stage
+   
     always @(posedge clk) begin
         case (IF_ID_IR[31:26])
-            6'b000000: // R-Type (ADD, SUB)
-                if (IF_ID_IR[5:0] == 6'b100000) // ADD
+            6'b000000: 
+                if (IF_ID_IR[5:0] == 6'b100000) 
                     EX_MEM_ALU_OUT <= ID_EX_A + ID_EX_B;
-                else if (IF_ID_IR[5:0] == 6'b100010) // SUB
+                else if (IF_ID_IR[5:0] == 6'b100010) 
                     EX_MEM_ALU_OUT <= ID_EX_A - ID_EX_B;
-            6'b100011: // LOAD
+            6'b100011: 
                 EX_MEM_ALU_OUT <= ID_EX_A + ID_EX_IMM;
         endcase
         EX_MEM_B <= ID_EX_B;
         EX_MEM_RD <= ID_EX_RD;
     end
 
-    // MEM Stage
+    
     always @(posedge clk) begin
-        if (IF_ID_IR[31:26] == 6'b100011) // LOAD
+        if (IF_ID_IR[31:26] == 6'b100011) 
             MEM_WB_ALU_OUT <= data_memory[EX_MEM_ALU_OUT >> 2];
         else
             MEM_WB_ALU_OUT <= EX_MEM_ALU_OUT;
@@ -74,7 +72,7 @@ module PipelinedProcessor(
         MEM_WB_RegWrite <= 1;
     end
 
-    // WB Stage
+  
     always @(posedge clk) begin
         if (MEM_WB_RegWrite)
             register_file[MEM_WB_RD] <= MEM_WB_ALU_OUT;
