@@ -90,4 +90,10 @@ This 4-stage pipelined processor successfully executes ADD, SUB, and LOAD instru
 
 OUTPUT:
 ![pipeline_output2](https://github.com/user-attachments/assets/23fe1c8c-64c0-46db-b336-7da06de2b926)
+DESIGN:
+<img width="1450" height="623" alt="processor" src="https://github.com/user-attachments/assets/69f8f78e-b9a4-4301-a9cc-9a00c45b927a" />
+
+<img width="1246" height="728" alt="processorsyn" src="https://github.com/user-attachments/assets/57b74e98-45b8-4a72-9a73-97535471ceb3" />
+
+
 
